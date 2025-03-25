@@ -1,0 +1,19 @@
+In spring boot app, we only need to add the spring boot security dependency.
+Spring boot auto configures the security with sensible defaults within the
+WebSecurityConfiguration.class.
+
+Authentication --> Process of verifying the identity of an individual.It ensures the
+user is who they claim to be. It involvbes validation of credentials like username and
+passwords and creates a security context for the user.
+
+Authorization --> It determines wheteher an authenticated individual has the necessary
+permissions to access a particular resource and perform an action. It controls
+what an authenticated user can do ar not do.
+
+Internal working :
+1. In Spring boot application , SecurityFilterAutoConfiguration automatically registers,
+the DelegatingFilterProxy filter with the name springsecurityfilterchain.
+
+2.Once the request reaches the DelegatingFilterProxy .Spring delegates the
+processing to filterchainproxy bean that utilizes the SecurityFilterChain to execute the list of all tghe
+fuilters to be invoked for the current request.
