@@ -21,4 +21,6 @@ class SpringSecurity2ApplicationTests {
 		System.out.println(userId.equals(user.getId()));
 	}
 
+
+
 }

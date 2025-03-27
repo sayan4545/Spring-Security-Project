@@ -24,14 +24,14 @@ public class WebSecurityConfig {
         try{
             httpSecurity
                     .authorizeHttpRequests(auth->
-                            auth.requestMatchers("/createPost")
-                                    .hasAnyRole("ADMIN")
+                            auth.requestMatchers("/createPost","/auth","/auth/**")
+                                    .permitAll()
                                     .anyRequest()
                                     .authenticated())
                     .csrf(csrfconfig-> csrfconfig.disable())
                     .sessionManagement(sessionConfig->
-                            sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                    .formLogin(Customizer.withDefaults());
+                            sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                    //.formLogin(Customizer.withDefaults());
             return httpSecurity.build();
         }catch(Exception e){
             e.printStackTrace();
@@ -39,19 +39,19 @@ public class WebSecurityConfig {
         }
 
     }
-    @Bean
-    UserDetailsService inMemoryUserDetailsService(){
-        UserDetails normalUser = User
-                .withUsername("sayan")
-                .roles("USER")
-                .password(passwordEncoder().encode("sayan1234"))
-                .build();
-        UserDetails adminUser = User.withUsername("chandrika")
-                .roles("ADMIN")
-                .password(passwordEncoder().encode("chandrika1234"))
-                .build();
-        return new InMemoryUserDetailsManager(normalUser,adminUser);
-    }
+//    @Bean
+//    UserDetailsService inMemoryUserDetailsService(){
+//        UserDetails normalUser = User
+//                .withUsername("sayan")
+//                .roles("USER")
+//                .password(passwordEncoder().encode("sayan1234"))
+//                .build();
+//        UserDetails adminUser = User.withUsername("chandrika")
+//                .roles("ADMIN")
+//                .password(passwordEncoder().encode("chandrika1234"))
+//                .build();
+//        return new InMemoryUserDetailsManager(normalUser,adminUser);
+//    }
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
